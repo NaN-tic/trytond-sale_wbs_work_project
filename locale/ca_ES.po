@@ -1,0 +1,19 @@
+# 
+msgid ""
+msgstr "Content-Type: text/plain; charset=utf-8\n"
+
+msgctxt "error:sale.line:"
+msgid "Subtotal"
+msgstr "Subtotal"
+
+msgctxt "field:work.project,wbs:"
+msgid "Work Breakdown Structure"
+msgstr "Estructura desglossament del treball"
+
+msgctxt "field:work.project,wbs_tree:"
+msgid "Work Breakdown Structure"
+msgstr "Estructura desglossament del treball"
+
+msgctxt "view:sale.sale:"
+msgid "Update Structure"
+msgstr "Actualitza estructura"

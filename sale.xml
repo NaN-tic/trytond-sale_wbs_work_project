@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The COPYRIGHT file at the top level of this repository contains the full
+     copyright notices and license terms. -->
+<tryton>
+    <data>
+        <record model="ir.ui.view" id="sale_view_form">
+            <field name="model">sale.sale</field>
+            <field name="type">form</field>
+            <field name="inherit" ref="sale.sale_view_form"/>
+            <field name="name">sale_form</field>
+        </record>
+
+        <record model="ir.model.button" id="sale_update_structure_button">
+            <field name="name">update_structure</field>
+            <field name="model" search="[('model', '=', 'sale.sale')]"/>
+        </record>
+        <record model="ir.model.button-res.group"
+                id="sale_updat_structure_button_group_sale">
+            <field name="button" ref="sale_update_structure_button"/>
+            <field name="group" ref="sale.group_sale"/>
+        </record>
+    </data>
+</tryton>

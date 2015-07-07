@@ -20,6 +20,7 @@ class Sale:
             })
         cls._buttons['update_structure'] = {
             'invisible': (Eval('state') != 'draft') | (~Bool(Eval('project'))),
+            'icon': 'tryton-refresh',
             }
 
     def get_wbs_tree(self, name):

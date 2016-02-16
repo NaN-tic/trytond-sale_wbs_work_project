@@ -54,6 +54,9 @@ class Sale:
                 self.create_lines_from_wbs(wbs.childs, sale_line.childs,
                     parent_line=sale_line)
 
+            if sale_line.sale.project and not wbs.project:
+                wbs.project = sale_line.sale.project
+                wbs.save()
 
 class SaleLine:
     __name__ = 'sale.line'

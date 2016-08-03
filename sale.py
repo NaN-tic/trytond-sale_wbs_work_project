@@ -40,9 +40,13 @@ class Sale:
             sale.create_lines_from_wbs(sale.wbs_tree, sale.lines_tree)
 
     def create_lines_from_wbs(self, wbs_tree, lines_tree, parent_line=None):
-        lines_by_description = {x.description: x for x in lines_tree}
+        lines_by_description = {
+            (x.description, x.product.id): x for x in lines_tree
+            }
         for wbs in wbs_tree:
-            sale_line = lines_by_description.get(wbs.description)
+            sale_line = lines_by_description.get(
+                (wbs.description, wbs.product.id)
+                )
             if not sale_line:
                 sale_line = wbs.get_sale_line(parent_line)
                 sale_line.sale = self.id

@@ -6,11 +6,11 @@ from trytond.pyson import Bool, Eval
 from trytond.transaction import Transaction
 
 __all__ = ['Sale', 'SaleLine']
-__metaclass__ = PoolMeta
 
 
 class Sale:
     __name__ = 'sale.sale'
+    __metaclass__ = PoolMeta
 
     @classmethod
     def __setup__(cls):
@@ -62,6 +62,7 @@ class Sale:
 
 class SaleLine:
     __name__ = 'sale.line'
+    __metaclass__ = PoolMeta
 
     project = fields.Function(fields.Many2One('work.project', 'Project'),
         'on_change_with_project')

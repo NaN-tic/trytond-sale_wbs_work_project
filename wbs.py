@@ -7,11 +7,12 @@ from trytond.pool import Pool, PoolMeta
 from trytond.pyson import Eval
 
 __all__ = ['WorkBreakdownStructure', 'Project']
-__metaclass__ = PoolMeta
 
 
 class WorkBreakdownStructure:
     __name__ = 'work.breakdown.structure'
+    __metaclass__ = PoolMeta
+
     project = fields.Many2One('work.project', 'Project', ondelete='CASCADE')
 
     @classmethod
@@ -57,6 +58,8 @@ class WorkBreakdownStructure:
 
 class Project:
     __name__ = 'work.project'
+    __metaclass__ = PoolMeta
+
     wbs = fields.One2Many('work.breakdown.structure', 'project',
         'Work Breakdown Structure')
     wbs_tree = fields.Function(fields.One2Many('work.breakdown.structure',

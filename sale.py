@@ -16,17 +16,18 @@ class Sale:
     def __setup__(cls):
         super(Sale, cls).__setup__()
         cls.lines.context.update({
-            'project': Eval('project'),
+            'project': Eval('work_project'),
             })
         cls._buttons['update_structure'] = {
-            'invisible': (Eval('state') != 'draft') | (~Bool(Eval('project'))),
+            'invisible': (Eval('state') != 'draft') | (
+                ~Bool(Eval('work_project'))),
             'icon': 'tryton-refresh',
             }
 
     def get_wbs_tree(self, name):
-        if not self.project:
+        if not self.work_project:
             return super(Sale, self).get_wbs_tree(name)
-        return [x.id for x in self.project.wbs_tree]
+        return [x.id for x in self.work_project.wbs_tree]
 
     @classmethod
     def quote(cls, sales):
@@ -81,10 +82,10 @@ class SaleLine:
     def default_project():
         return Transaction().context.get('project')
 
-    @fields.depends('_parent_sale.project')
+    @fields.depends('_parent_sale.work_project')
     def on_change_with_project(self, name=None):
-        if self.sale and self.sale.project:
-            return self.sale.project.id
+        if self.sale and self.sale.work_project:
+            return self.sale.work_project.id
 
     def get_work_breakdown_structure(self, parent):
         wbs = super(SaleLine, self).get_work_breakdown_structure(parent)

@@ -1,7 +1,7 @@
 # The COPYRIGHT file at the top level of this repository contains the full
 # copyright notices and license terms.
 from trytond.model import ModelView, fields
-from trytond.pool import PoolMeta
+from trytond.pool import Pool, PoolMeta
 from trytond.pyson import Bool, Eval
 from trytond.transaction import Transaction
 
@@ -59,6 +59,25 @@ class Sale:
             if wbs.childs:
                 self.create_lines_from_wbs(wbs.childs, sale_line.childs,
                     parent_line=sale_line)
+
+            if sale_line.sale.work_project and not wbs.project:
+                wbs.project = sale_line.sale.work_project
+                wbs.save()
+
+    @classmethod
+    def write(cls, *args):
+        pool = Pool()
+        WBS = pool.get('work.breakdown.structure')
+        actions = iter(args)
+        to_write = []
+        for sales, values in zip(actions, actions):
+            if 'work_project' in values:
+                wbs = [l.wbs for sale in sales for l in sale.lines if l.wbs]
+                to_write.extend((wbs, {'project': values.get('work_project')}))
+        super(Sale, cls).write(*args)
+        if to_write:
+            with Transaction().set_context(_check_access=False):
+                WBS.write(*to_write)
 
 
 class SaleLine:

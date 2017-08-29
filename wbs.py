@@ -24,7 +24,7 @@ class WorkBreakdownStructure:
         cls.parent.depends.append('project')
         cls.childs.domain.append(('project', '=', Eval('project')))
         cls.childs.depends.append('project')
-        cls.sale_lines.domain.append(('sale.project', '=', Eval('project')))
+        cls.sale_lines.domain.append(('sale.work_project', '=', Eval('project')))
         cls.sale_lines.depends.append('project')
 
     @classmethod
